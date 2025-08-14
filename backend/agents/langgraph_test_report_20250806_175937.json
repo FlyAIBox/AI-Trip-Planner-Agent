@@ -1,0 +1,51 @@
+{
+  "test_summary": {
+    "total_tests": 5,
+    "passed_tests": 3,
+    "failed_tests": 2,
+    "total_duration": 0.02732992172241211,
+    "test_time": "2025-08-06T17:59:37.711644"
+  },
+  "test_details": [
+    {
+      "test_name": "配置加载",
+      "success": true,
+      "message": "模型: gemini-2.0-flash",
+      "duration": 1.6689300537109375e-06,
+      "timestamp": "2025-08-06T17:59:37.684321"
+    },
+    {
+      "test_name": "智能体初始化",
+      "success": false,
+      "message": "缺少方法: coordinator_agent",
+      "duration": 0.02709650993347168,
+      "timestamp": "2025-08-06T17:59:37.711458"
+    },
+    {
+      "test_name": "状态结构",
+      "success": true,
+      "message": "所有必需字段存在",
+      "duration": 3.814697265625e-06,
+      "timestamp": "2025-08-06T17:59:37.711504"
+    },
+    {
+      "test_name": "路由逻辑",
+      "success": true,
+      "message": "路由决策正常: end",
+      "duration": 3.5762786865234375e-06,
+      "timestamp": "2025-08-06T17:59:37.711527"
+    },
+    {
+      "test_name": "简单规划",
+      "success": false,
+      "message": "异常: 'LangGraphTravelAgents' object has no attribute 'coordinator_agent'",
+      "duration": 5.4836273193359375e-06,
+      "timestamp": "2025-08-06T17:59:37.711547"
+    }
+  ],
+  "system_info": {
+    "gemini_model": "gemini-2.0-flash",
+    "api_key_configured": true,
+    "python_version": "3.10.18 | packaged by conda-forge | (main, Jun  4 2025, 14:45:41) [GCC 13.3.0]"
+  }
+}
