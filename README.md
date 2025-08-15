@@ -20,9 +20,12 @@
 ./setup_environment.sh
 
 # 方法二：手动设置
-conda create -n ai-travel-agents python=3.10
-conda activate ai-travel-agents
+conda create -n AI-Trip-Planner-Agent python=3.10 -y
+conda activate AI-Trip-Planner-Agent
 echo "GOOGLE_API_KEY=your_api_key_here" > .env
+
+## 删除环境
+# conda env remove -n AI-Trip-Planner-Agent
 ```
 
 ### 2. 启动服务

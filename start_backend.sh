@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🚀 启动稳定版AI旅行规划后端服务"
+echo "🚀 启动AI旅行规划后端服务"
 echo "=================================="
 
 # 杀死可能存在的旧进程
@@ -73,7 +73,7 @@ if curl -s http://localhost:8080/health >/dev/null 2>&1; then
 else
     echo ""
     echo "❌ 服务启动可能失败"
-    echo "🔍 请检查日志: cat logs/backend.log"
+    echo "🔍 请检查日志: tail -f logs/backend.log"
     echo "🔧 手动启动: cd backend && python api_server.py"
 fi
 
