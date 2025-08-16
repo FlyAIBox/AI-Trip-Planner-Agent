@@ -68,7 +68,7 @@ if curl -s http://localhost:8080/health >/dev/null 2>&1; then
     echo "💡 使用提示:"
     echo "1. 访问前端页面开始规划旅行"
     echo "2. 如果之前有任务，可以使用手动查询功能"
-    echo "3. 查看日志: tail -f logs/backend.log"
+    echo "3. 查看日志: tail -f -n 200 logs/backend.log"
     echo "4. 停止服务: kill $BACKEND_PID"
 else
     echo ""

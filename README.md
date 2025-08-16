@@ -1,210 +1,211 @@
-# 🌍 AI旅行规划智能体 
+# 🌍 AI旅行规划智能体 (AI Trip Planner Agent)
 
-基于LangGraph框架、Google Gemini Flash-2.0和DuckDuckGo搜索的智能旅行规划系统
+一个基于LangGraph多智能体协作的智能旅行规划系统，由Google Gemini Flash-2.0和DuckDuckGo搜索驱动。
 
-## 🎯 系统概述
+## 🏗️ 系统架构
 
-这是一个先进的多智能体AI旅行规划Web系统，包含：
+### 整体架构
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   Streamlit     │    │   FastAPI       │    │   LangGraph     │
+│   前端界面      │◄──►│   后端API       │◄──►│   多智能体系统  │
+│                 │    │                 │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+```
 
-- **🌐 Streamlit前端**: 用户友好的Web界面
-- **⚡ FastAPI后端**: 高性能API服务
-- **🤖 LangGraph智能体**: 多智能体协作系统
-- **📊 实时监控**: 可视化进度跟踪
-- **📥 文件服务**: 完整报告下载
+### 技术栈
+- **前端**: Streamlit (Python Web框架)
+- **后端**: FastAPI (高性能异步API框架)
+- **AI引擎**: LangGraph (多智能体协作框架)
+- **大语言模型**: Google Gemini Flash-2.0
+- **搜索服务**: DuckDuckGo实时搜索
+- **数据存储**: JSON文件存储 + 内存缓存
+- **部署**: Docker容器化 + 可选的Kubernetes
+
+## 🤖 AI智能体团队
+
+### 核心智能体
+1. **🎯 协调员智能体** - 工作流编排与决策综合
+2. **✈️ 旅行顾问** - 目的地专业知识与实时搜索
+3. **💰 预算优化师** - 成本分析与实时定价
+4. **🌤️ 天气分析师** - 天气情报与当前数据
+5. **🏠 当地专家** - 内部知识与实时本地信息
+6. **📅 行程规划师** - 日程优化与物流安排
+
+### 智能体协作流程
+```
+用户请求 → 协调员 → 并行执行各专业智能体 → 结果整合 → 生成报告
+```
 
 ## 🚀 快速开始
 
-### 1. 环境准备
+### 环境要求
+- Python 3.10+
+- 8GB+ RAM (推荐16GB)
+- 稳定的网络连接
+
+### 1. 克隆项目
 ```bash
-# 方法一：使用自动设置脚本（推荐）
-./setup_environment.sh
-
-# 方法二：手动设置
-conda create -n AI-Trip-Planner-Agent python=3.10 -y
-conda activate AI-Trip-Planner-Agent
-echo "GOOGLE_API_KEY=your_api_key_here" > .env
-
-## 删除环境
-# conda env remove -n AI-Trip-Planner-Agent
+git clone https://github.com/FlyAIBox/AI-Trip-Planner-Agent.git
+cd AI-Trip-Planner-Agent
 ```
 
-### 2. 启动服务
+### 2. 安装依赖
 ```bash
-# 启动后端 (终端1)
+# 安装后端依赖
+pip install -r backend/requirements.txt
+
+# 安装前端依赖
+pip install -r frontend/requirements.txt
+```
+
+### 3. 配置环境变量
+```bash
+# 创建环境变量文件
+cd backend
+cp .env.example .env
+
+# 编辑环境变量
+nano .env
+```
+
+必需的环境变量：
+```bash
+GOOGLE_API_KEY=your_google_api_key
+DUCKDUCKGO_API_KEY=your_duckduckgo_api_key
+```
+
+### 4. 启动服务
+
+#### 方法1: 使用启动脚本
+```bash
+# 启动后端服务
 ./start_backend.sh
 
-# 启动前端 (终端2)
+# 启动前端服务
 ./start_frontend.sh
-
-# 或者使用一键重启脚本（推荐）
-./restart_services.sh
 ```
 
-### 3. 访问应用
-- 🌐 前端界面: http://localhost:8501
-- 📚 API文档: http://172.16.1.3:8080/docs
-- 🔧 健康检查: http://172.16.1.3:8080/health
+#### 方法2: 手动启动
+```bash
+# 启动后端
+cd backend
+python api_server.py
 
-### 4. 监控和故障排除
+# 启动前端 (新终端)
+cd frontend
+streamlit run streamlit_app.py
+```
+
+### 5. 访问应用
+- **前端界面**: http://localhost:8501
+- **后端API**: http://localhost:8080
+- **API文档**: http://localhost:8080/docs
+- **健康检查**: http://localhost:8080/health
+
+## 📋 使用说明
+
+### 1. 填写旅行需求
+在左侧表单中输入：
+- 🎯 目的地城市
+- 📅 出发和返回日期
+- 👥 团队人数
+- 💰 预算范围
+- 🏨 住宿偏好
+- 🚗 交通偏好
+- 🎨 兴趣爱好
+
+### 2. 开始AI规划
+点击"🚀 开始规划"按钮，系统将：
+- 创建规划任务
+- 启动多智能体协作
+- 实时显示处理进度
+- 生成个性化旅行计划
+
+### 3. 查看结果
+- 📊 实时进度监控
+- 🤖 各智能体专业建议
+- 📄 详细规划报告
+- 📥 多种格式下载
+
+## 🔧 故障排除
+
+### 常见问题
+
+#### 1. 请求超时问题
+**症状**: 前端显示"请求超时，正在重试..."
+**原因**: 网络延迟或后端处理时间较长
+**解决方案**: 
+- 等待几分钟后刷新页面
+- 使用手动查询功能
+- 检查网络连接
+
+#### 2. 后端连接失败
+**症状**: "后端服务连接失败"
+**解决方案**:
+```bash
+# 检查后端服务状态
+curl http://localhost:8080/health
+
+# 重启后端服务
+./start_backend.sh
+```
+
+#### 3. API密钥错误
+**症状**: "API认证失败"
+**解决方案**:
+- 检查环境变量设置
+- 验证API密钥有效性
+- 确认API配额充足
+
+### 性能优化建议
+
+1. **增加超时时间**: 对于复杂规划任务，适当增加前端超时设置
+2. **并发处理**: 后端支持多任务并发处理
+3. **缓存机制**: 利用内存缓存减少重复计算
+4. **异步处理**: 使用异步API提高响应速度
+
+## 📊 系统监控
+
+### 日志文件
+- **后端日志**: `logs/backend.log`
+- **前端日志**: `logs/frontend.log`
+- **错误日志**: `logs/error.log`
+
+### 健康检查
 ```bash
 # 检查服务状态
-./monitor_services.sh
+curl http://localhost:8080/health
 
-# 查看实时日志
-tail -f logs/api_server.log
-tail -f logs/streamlit.log
-
-# 重启所有服务
-./restart_services.sh
+# 查看任务状态
+curl http://localhost:8080/status/{task_id}
 ```
 
-## 🎯 AI智能体团队
+## 🚀 部署选项
 
-| 智能体 | 职责 | 功能 |
-|--------|------|------|
-| 🎯 协调员智能体 | 工作流编排与决策综合 | 统筹整个规划流程 |
-| ✈️ 旅行顾问 | 目的地专业知识与实时搜索 | 提供目的地信息和建议 |
-| 💰 预算优化师 | 成本分析与实时定价 | 优化预算分配和成本控制 |
-| 🌤️ 天气分析师 | 天气情报与当前数据 | 提供天气预报和建议 |
-| 🏠 当地专家 | 内部知识与实时本地信息 | 提供当地文化和实用信息 |
-| 📅 行程规划师 | 日程优化与物流安排 | 制定详细的行程安排 |
-
-## 📁 项目结构
-
-```
-langgraph_multi_agent_ai_travel_agent/
-├── 🌐 frontend/              # Streamlit前端
-│   ├── streamlit_app.py      # 主应用
-│   ├── requirements.txt      # 前端依赖
-│   └── Dockerfile           # Docker配置
-├── ⚡ backend/               # FastAPI后端
-│   ├── api_server.py        # API服务器
-│   ├── requirements.txt     # 后端依赖
-│   ├── Dockerfile          # Docker配置
-│   ├── agents/             # LangGraph智能体
-│   ├── config/             # 配置文件
-│   ├── modules/            # 功能模块
-│   ├── tools/              # 工具模块
-│   └── utils/              # 工具函数
-├── 📊 results/              # 规划结果存储
-├── 🚀 start_backend.sh      # 后端启动脚本
-├── 🌐 start_frontend.sh     # 前端启动脚本
-├── 🐳 docker-compose.yml    # Docker编排
-├── 🎮 demo.py              # 演示脚本
-└── 📚 文档文件
-```
-
-## 🔧 功能特性
-
-### 前端功能
-- 📋 **智能表单**: 用户友好的旅行规划输入界面
-- 🔄 **实时进度**: 显示多智能体协作的实时进度
-- 📊 **结果展示**: 结构化展示各智能体的专业建议
-- 📥 **报告下载**: 支持下载完整的规划报告
-
-### 后端功能
-- 🚀 **异步处理**: 支持多个并发规划任务
-- 📡 **RESTful API**: 标准化的API接口
-- 💾 **状态管理**: 实时跟踪任务状态和进度
-- 📁 **文件服务**: 自动保存和提供下载服务
-
-### 智能体功能
-- 🤖 **多智能体协作**: 基于LangGraph的状态图管理
-- 🔍 **实时搜索**: 集成DuckDuckGo获取最新信息
-- 🧠 **智能分析**: Google Gemini Flash-2.0驱动的AI分析
-- 📈 **迭代优化**: 智能体间的协作和优化
-
-## 🐳 Docker部署
-
+### Docker部署
 ```bash
-# 一键启动所有服务
-docker-compose up --build -d
+# 构建镜像
+docker build -t ai-trip-planner .
 
-# 查看服务状态
-docker-compose ps
-
-# 查看日志
-docker-compose logs -f
+# 运行容器
+docker run -p 8080:8080 -p 8501:8501 ai-trip-planner
 ```
 
-## 🔗 API接口
 
-### 主要端点
 
-- `GET /` - API信息
-- `GET /health` - 健康检查
-- `POST /plan` - 创建旅行规划任务
-- `GET /status/{task_id}` - 获取任务状态
-- `GET /download/{task_id}` - 下载规划结果
-
-### 使用示例
-
-```python
-import requests
-
-# 创建规划任务
-response = requests.post("http://localhost:8080/plan", json={
-    "destination": "北京",
-    "start_date": "2025-08-18",
-    "end_date": "2025-08-25",
-    "budget_range": "中等预算",
-    "group_size": 2,
-    "interests": ["历史", "美食"]
-})
-
-task_id = response.json()["task_id"]
-
-# 查询进度
-status = requests.get(f"http://localhost:8000/status/{task_id}")
-```
-
-## 🧪 测试和演示
-
-```bash
-# 运行完整演示
-python demo.py
-```
-
-## 📚 文档
-
-- 📖 **快速开始**: [QUICK_START.md](QUICK_START.md)
-- 🚀 **部署指南**: [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)
-- 🌐 **Web版说明**: [README_WEB.md](README_WEB.md)
-
-## 🔧 环境要求
-
-- Python 3.10+ (推荐使用Conda管理)
-- Anaconda或Miniconda
-- Google API密钥 (Gemini)
-- 8GB+ RAM (推荐)
-- 网络连接 (用于实时搜索)
 
 ## 📄 许可证
 
-本项目采用MIT许可证 - 详见 [LICENSE](LICENSE) 文件
+MIT License - 详见 [LICENSE](LICENSE) 文件
 
-## 🤝 贡献
+## 🙏 致谢
 
-欢迎提交Issue和Pull Request来改进这个项目！
+- Google Gemini团队提供的大语言模型支持
+- DuckDuckGo提供的实时搜索服务
+- LangGraph团队的多智能体框架
+- Streamlit和FastAPI的优秀框架支持
 
-## 🎉 开始使用
+---
 
-```bash
-# 克隆项目
-git clone <repository-url>
-cd langgraph_multi_agent_ai_travel_agent
-
-# 一键设置环境
-./setup_environment.sh
-
-# 编辑.env文件，添加API密钥
-# GOOGLE_API_KEY=your_api_key_here
-
-# 启动服务
-./start_backend.sh    # 终端1
-./start_frontend.sh   # 终端2
-
-# 访问: http://localhost:8501
-```
-
-祝您旅行愉快！🌍✈️
+**注意**: 本系统需要稳定的网络连接和有效的API密钥才能正常工作。首次使用请确保完成所有配置步骤。

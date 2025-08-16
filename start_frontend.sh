@@ -5,8 +5,8 @@
 # ============================================================================
 #
 # 1. 创建虚拟环境（推荐）：
-#    conda create -n ai-travel-agents python=3.10
-#    conda activate ai-travel-agents
+#    conda create -n AI-Trip-Planner-Agent python=3.10
+#    conda activate AI-Trip-Planner-Agent
 #
 # 2. 安装依赖：
 #    pip install -r requirements.txt
@@ -31,15 +31,15 @@ fi
 cd frontend
 
 # 检查是否存在conda虚拟环境
-if ! conda env list | grep -q "ai-travel-agents"; then
+if ! conda env list | grep -q "AI-Trip-Planner-Agent"; then
     echo "📦 创建conda虚拟环境..."
-    conda create -n ai-travel-agents python=3.10 -y
+    conda create -n AI-Trip-Planner-Agent python=3.10 -y
 fi
 
 # 激活虚拟环境
 echo "🔧 激活conda虚拟环境..."
 source $(conda info --base)/etc/profile.d/conda.sh
-conda activate ai-travel-agents
+conda activate AI-Trip-Planner-Agent
 
 # 安装依赖
 echo "📥 安装依赖包..."

@@ -82,7 +82,7 @@ secrets.py
 # Conda environments
 .conda/
 envs/
-ai-travel-agents/
+AI-Trip-Planner-Agent/
 
 # Virtual environments (both pip and conda)
 backend/venv/
